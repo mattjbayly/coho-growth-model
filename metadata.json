@@ -1,0 +1,5 @@
+{
+  "name": "Coho Growth & Overwinter Survival Model",
+  "description": "A bioenergetics-based simulation tool for age-0 Coho salmon summer growth and overwinter survivorship.",
+  "requestFramePermissions": []
+}
