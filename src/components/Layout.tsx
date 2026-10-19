@@ -1,11 +1,20 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { BookOpen, SlidersHorizontal } from 'lucide-react';
+
+export type View = 'model' | 'methodology';
 
 interface LayoutProps {
+  view: View;
+  onNavigate: (view: View) => void;
   children: React.ReactNode;
 }
 
-export const Layout: React.FC<LayoutProps> = ({ children }) => {
+export const Layout: React.FC<LayoutProps> = ({ view, onNavigate, children }) => {
+  const navClass = (active: boolean) =>
+    `flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+      active ? 'bg-emerald-600 text-white shadow-sm' : 'text-black/60 hover:text-black hover:bg-black/5'
+    }`;
+
   return (
     <div className="min-h-screen bg-[#f5f5f4] text-[#1a1a1a] font-sans">
       <header className="bg-white border-b border-black/5 px-6 py-4 flex items-center justify-between sticky top-0 z-50">
@@ -26,16 +35,20 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             <p className="text-xs text-black/50 font-medium">Growth &amp; Overwinter Survival with Temperature and Food Availability</p>
           </div>
         </div>
-        <nav className="flex gap-6 text-sm font-medium text-black/60">
-          <a href="#" className="hover:text-black transition-colors">Documentation</a>
-          <a href="#" className="hover:text-black transition-colors">Methodology</a>
+        <nav className="flex gap-1">
+          <button onClick={() => onNavigate('model')} className={navClass(view === 'model')}>
+            <SlidersHorizontal className="w-4 h-4" /> Model
+          </button>
+          <button onClick={() => onNavigate('methodology')} className={navClass(view === 'methodology')}>
+            <BookOpen className="w-4 h-4" /> Methodology
+          </button>
         </nav>
       </header>
       <main className="max-w-7xl mx-auto p-6">
         {children}
       </main>
       <footer className="border-t border-black/5 py-8 mt-12 text-center text-sm text-black/40">
-        <p>© 2026 Coho Growth and Survivorship Model. Built for Fisheries Science.</p>
+        <p>© 2026 M.J. Bayly Analytics Ltd.</p>
       </footer>
     </div>
   );
